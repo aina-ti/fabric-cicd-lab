@@ -17,7 +17,7 @@
 
 # CELL ********************
 
-#New version of the notebook using the development branch to test git integration after branching out. 
+# Conflict test: changed in the workspace
 
 # Practice tables with the same traps as treino_sql. Rerun at any time to reset them.
 from datetime import date, datetime as dt

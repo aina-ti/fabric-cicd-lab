@@ -1,0 +1,15 @@
+find_replace:
+  # Dev lakehouse id -> the lakehouse created in the target workspace
+  - find_value: "30bd74f9-927b-4c69-a1dc-2d46143ee6ca"
+    replace_value:
+      test: "$items.Lakehouse.treino.$id"
+      prod: "$items.Lakehouse.treino.$id"
+    item_type: "Notebook"
+    item_name: "00_setup"
+  # Dev workspace id -> the target workspace
+  - find_value: "df50ac38-5cee-4716-927d-727a7f308ea7"
+    replace_value:
+      test: "$workspace.$id"
+      prod: "$workspace.$id"
+    item_type: "Notebook"
+    item_name: "00_setup"
