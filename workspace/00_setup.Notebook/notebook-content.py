@@ -17,7 +17,7 @@
 
 # CELL ********************
 
-# Conflict test: line changed in GitHub on dev
+# Conflict test: changed in the workspace
 
 # Practice tables with the same traps as treino_sql. Rerun at any time to reset them.
 from datetime import date, datetime as dt
