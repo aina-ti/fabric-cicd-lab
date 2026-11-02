@@ -1,0 +1,47 @@
+# Release to Fabric: a pushed tag deploys that commit to Test, then waits for approval before Prod.
+name: Release to Fabric
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+env:
+  FAB_SPN_CLIENT_ID: ${{ secrets.FABRIC_CLIENT_ID }}
+  FAB_SPN_CLIENT_SECRET: ${{ secrets.FABRIC_CLIENT_SECRET }}
+  FAB_TENANT_ID: ${{ secrets.FABRIC_TENANT_ID }}
+
+jobs:
+  deploy-test:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ms-fabric-cli==1.8.0
+      - name: Deploy to Test
+        working-directory: deploy
+        run: fab deploy --config config.yml --target_env test -f
+      - name: Record what was deployed
+        run: echo "Test received $GITHUB_REF_NAME at $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-prod:
+    needs: deploy-test
+    runs-on: ubuntu-latest
+    environment: prod # The job waits here until a required reviewer approves it.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ms-fabric-cli==1.8.0
+      - name: Deploy to Prod
+        working-directory: deploy
+        run: fab deploy --config config.yml --target_env prod -f
+      - name: Record what was deployed
+        run: echo "Prod received $GITHUB_REF_NAME at $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
