@@ -1,0 +1,8 @@
+core:
+  workspace:
+    test: "treino-test"
+  repository_directory: "../workspace"
+  item_types_in_scope:
+    - Lakehouse
+    - Notebook
+  parameter: "parameter.yml"
