@@ -24,6 +24,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install ms-fabric-cli==1.8.0
+      # The runner has no OS keyring, and it is discarded after the job.
+      - run: fab config set encryption_fallback_enabled true
       - name: Deploy to Test
         working-directory: deploy
         run: fab deploy --config config.yml --target_env test -f
@@ -40,6 +42,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install ms-fabric-cli==1.8.0
+      # The runner has no OS keyring, and it is discarded after the job.
+      - run: fab config set encryption_fallback_enabled true
       - name: Deploy to Prod
         working-directory: deploy
         run: fab deploy --config config.yml --target_env prod -f
