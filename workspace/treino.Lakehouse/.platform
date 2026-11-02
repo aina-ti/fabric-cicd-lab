@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "treino"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "143ee6ca-2d46-a1dc-4c69-927b30bd74f9"
+  }
+}
